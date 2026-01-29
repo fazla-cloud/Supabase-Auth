@@ -1,6 +1,6 @@
 # 🔐 Supabase Auth API Server
 
-A lightweight, production-ready Node.js REST API server that wraps Supabase Authentication, providing a clean interface for user authentication flows including signup, sign-in, OTP verification, password reset, and user management.
+A lightweight, production-ready **Node.js REST API server** that wraps **Supabase Authentication**, providing a clean interface for user authentication flows. Features include **email/password signup**, **OTP verification**, **password reset**, **Google OAuth**, and **user management**. Includes built-in **API tester UI** for testing all endpoints.
 
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-5.2-blue)](https://expressjs.com/)

@@ -1,16 +1,47 @@
 {
   "name": "supabase-auth",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST API server for Supabase Authentication - Email/password signup, OTP verification, password reset, Google OAuth, and user management. Includes built-in API tester UI.",
   "main": "server.js",
   "scripts": {
     "build": "node -c server.js",
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "supabase",
+    "authentication",
+    "auth",
+    "express",
+    "rest-api",
+    "api",
+    "otp",
+    "one-time-password",
+    "password-reset",
+    "oauth",
+    "google-oauth",
+    "nodejs",
+    "node",
+    "expressjs",
+    "jwt",
+    "session",
+    "user-management",
+    "email-verification",
+    "signup",
+    "signin",
+    "login"
+  ],
+  "author": "Fazla Rabbi <frchowdhury480@gmail.com> (https://fazla.pro)",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fazla-cloud/Supabase-Auth.git"
+  },
+  "homepage": "https://github.com/fazla-cloud/Supabase-Auth#readme",
+  "bugs": {
+    "url": "https://github.com/fazla-cloud/Supabase-Auth/issues"
+  },
+  "icon": "assets/images/Supabase-Auth.png",
   "type": "commonjs",
   "dependencies": {
     "@supabase/supabase-js": "^2.90.0",
