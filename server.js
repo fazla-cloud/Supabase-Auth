@@ -1,5 +1,5 @@
 /**
- * supabase_server.js
+ * server.js
  * Simple Express server to interact with Supabase (anon + optional service role key).
  *
  * Auth: signUp, signUpVerify, resendOtp, signIn, gglSignIn, forgtPss, resetPssVerify, getUsr, usrExst
@@ -17,7 +17,7 @@ const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const PORT = process.env.PORT || 3024;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  console.warn('[supabase_server] SUPABASE_URL or SUPABASE_ANON_KEY missing');
+  console.warn('[server] SUPABASE_URL or SUPABASE_ANON_KEY missing');
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -297,6 +297,12 @@ app.use(express.static('public'));
 
 /* ---------------- START ---------------- */
 
-app.listen(PORT, () => {
-  console.log(`[supabase_server] running at http://localhost:${PORT}`);
-});
+// Export for Vercel serverless functions
+module.exports = app;
+
+// Start server locally (not in Vercel)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`[server] running at http://localhost:${PORT}`);
+  });
+}

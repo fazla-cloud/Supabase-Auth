@@ -497,7 +497,7 @@ Import [`supabase_server.postman_collection.json`](./supabase_server.postman_col
 
 ```
 Supabase/Auth/
-├── supabase_server.js          # Main server file (all endpoints)
+├── server.js                    # Main server file (all endpoints)
 ├── package.json                 # Dependencies and scripts
 ├── env.example                  # Environment variables template
 ├── .env                         # Your actual env vars (gitignored)
