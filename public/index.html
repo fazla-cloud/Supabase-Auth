@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supabase Auth – API Tester</title>
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --card: #1a1a1f;
+      --border: #2d2d35;
+      --text: #e4e4e7;
+      --muted: #71717a;
+      --accent: #3b82f6;
+      --success: #22c55e;
+      --error: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 1.5rem;
+      line-height: 1.5;
+    }
+    h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+    .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .base-url {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .base-url label { min-width: 4rem; }
+    .base-url input {
+      flex: 1;
+      max-width: 20rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .cards { display: grid; gap: 1rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .card h2 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card h2 .method {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .method.get { background: #22c55e33; color: #22c55e; }
+    .method.post { background: #3b82f633; color: #3b82f6; }
+    .row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
+    .row:last-of-type { margin-bottom: 0; }
+    .row label { min-width: 5rem; color: var(--muted); font-size: 0.85rem; }
+    .row input, .row textarea {
+      padding: 0.4rem 0.6rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .row input { min-width: 12rem; }
+    .row textarea { min-width: 18rem; min-height: 2.5rem; font-family: inherit; resize: vertical; }
+    button.run {
+      margin-top: 0.75rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    button.run:hover { filter: brightness(1.1); }
+    .out {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: ui-monospace, monospace;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 12rem;
+      overflow: auto;
+    }
+    .out.empty { color: var(--muted); }
+    .out.err { color: var(--error); }
+    .out.ok { color: var(--success); }
+  </style>
+</head>
+<body>
+  <h1>Supabase Auth API Tester</h1>
+  <p class="sub">Run any endpoint and see the response below each card.</p>
+
+  <div class="base-url">
+    <label for="base">Base URL</label>
+    <input type="text" id="base" value="http://localhost:3024" placeholder="http://localhost:3024">
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h2><span class="method get">GET</span> /health</h2>
+      <button class="run" data-path="/health" data-method="GET">Run</button>
+      <pre class="out empty" data-out="health">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method post">POST</span> /signUp</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <div class="row"><label>password</label><input type="password" name="password" placeholder="password"></div>
+      <div class="row"><label>data (JSON)</label><input name="data" placeholder='{"display_name":"Test"}'> </div>
+      <button class="run" data-path="/signUp" data-method="POST" data-body='["email","password","data"]'>Run</button>
+      <pre class="out empty" data-out="signUp">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method post">POST</span> /signUpVerify</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <div class="row"><label>token</label><input name="token" placeholder="123456"></div>
+      <div class="row"><label>type</label><input name="type" placeholder="signup"></div>
+      <button class="run" data-path="/signUpVerify" data-method="POST" data-body='["email","token","type"]'>Run</button>
+      <pre class="out empty" data-out="signUpVerify">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method post">POST</span> /resendOtp</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <button class="run" data-path="/resendOtp" data-method="POST" data-body='["email"]'>Run</button>
+      <pre class="out empty" data-out="resendOtp">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method post">POST</span> /signIn</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <div class="row"><label>password</label><input type="password" name="password" placeholder="password"></div>
+      <button class="run" data-path="/signIn" data-method="POST" data-body='["email","password"]'>Run</button>
+      <pre class="out empty" data-out="signIn">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method get">GET</span> /gglSignIn</h2>
+      <div class="row"><label>redirectTo</label><input name="redirectTo" placeholder="https://your-app.com/callback"></div>
+      <button class="run" data-path="/gglSignIn" data-method="GET" data-query='["redirectTo"]'>Run</button>
+      <pre class="out empty" data-out="gglSignIn">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method post">POST</span> /forgtPss</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <div class="row"><label>redirectTo</label><input name="redirectTo" placeholder="https://your-app.com/reset-password"></div>
+      <button class="run" data-path="/forgtPss" data-method="POST" data-body='["email","redirectTo"]'>Run</button>
+      <pre class="out empty" data-out="forgtPss">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method post">POST</span> /resetPssVerify</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <div class="row"><label>token</label><input name="token" placeholder="OTP from email"></div>
+      <div class="row"><label>newPassword</label><input type="password" name="newPassword" placeholder="new password"></div>
+      <button class="run" data-path="/resetPssVerify" data-method="POST" data-body='["email","token","newPassword"]'>Run</button>
+      <pre class="out empty" data-out="resetPssVerify">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method get">GET</span> /getUsr (Bearer)</h2>
+      <div class="row"><label>Authorization</label><input name="bearer" placeholder="Bearer access_token"></div>
+      <button class="run" data-path="/getUsr" data-method="GET" data-header-bearer="bearer">Run</button>
+      <pre class="out empty" data-out="getUsr">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method get">GET</span> /getUsr?email= (admin)</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <button class="run" data-path="/getUsr" data-method="GET" data-query='["email"]'>Run</button>
+      <pre class="out empty" data-out="getUsrEmail">—</pre>
+    </div>
+
+    <div class="card">
+      <h2><span class="method post">POST</span> /usrExst</h2>
+      <div class="row"><label>email</label><input name="email" placeholder="test@example.com"></div>
+      <button class="run" data-path="/usrExst" data-method="POST" data-body='["email"]'>Run</button>
+      <pre class="out empty" data-out="usrExst">—</pre>
+    </div>
+  </div>
+
+  <script>
+    const baseInput = document.getElementById('base');
+
+    function getOut(btn) {
+      const id = btn.closest('.card').querySelector('[data-out]').getAttribute('data-out');
+      return document.querySelector(`pre[data-out="${id}"]`);
+    }
+
+    function show(btn, text, isError) {
+      const pre = getOut(btn);
+      pre.textContent = text;
+      pre.classList.remove('empty', 'ok', 'err');
+      pre.classList.add(isError ? 'err' : 'ok');
+    }
+
+    document.querySelectorAll('button.run').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const base = baseInput.value.replace(/\/$/, '');
+        const path = btn.getAttribute('data-path');
+        const method = btn.getAttribute('data-method');
+        const card = btn.closest('.card');
+
+        let url = base + path;
+        const opts = { method, headers: {} };
+
+        const bodyKeys = btn.getAttribute('data-body');
+        if (bodyKeys) {
+          try {
+            const keys = JSON.parse(bodyKeys);
+            const body = {};
+            keys.forEach(k => {
+              const input = card.querySelector(`[name="${k}"]`);
+              if (input && input.value.trim()) {
+                let v = input.value.trim();
+                if (k === 'data' && v) {
+                  try { body[k] = JSON.parse(v); } catch { body[k] = v; }
+                } else body[k] = v;
+              }
+            });
+            if (Object.keys(body).length) {
+              opts.headers['Content-Type'] = 'application/json';
+              opts.body = JSON.stringify(body);
+            }
+          } catch (e) {
+            show(btn, 'Error building body: ' + e.message, true);
+            return;
+          }
+        }
+
+        const queryKeys = btn.getAttribute('data-query');
+        if (queryKeys) {
+          try {
+            const keys = JSON.parse(queryKeys);
+            const params = new URLSearchParams();
+            keys.forEach(k => {
+              const input = card.querySelector(`[name="${k}"]`);
+              if (input && input.value.trim()) params.set(k, input.value.trim());
+            });
+            if (params.toString()) url += '?' + params.toString();
+          } catch (e) {
+            show(btn, 'Error building query: ' + e.message, true);
+            return;
+          }
+        }
+
+        const bearerKey = btn.getAttribute('data-header-bearer');
+        if (bearerKey) {
+          const input = card.querySelector(`[name="${bearerKey}"]`);
+          if (input && input.value.trim()) {
+            let v = input.value.trim();
+            if (!v.toLowerCase().startsWith('bearer ')) v = 'Bearer ' + v;
+            opts.headers['Authorization'] = v;
+          }
+        }
+
+        show(btn, 'Loading…', false);
+
+        try {
+          const res = await fetch(url, opts);
+          const text = await res.text();
+          let parsed;
+          try { parsed = JSON.parse(text); } catch { parsed = text; }
+          const out = typeof parsed === 'object' ? JSON.stringify(parsed, null, 2) : parsed;
+          show(btn, `Status: ${res.status}\n\n${out}`, res.status >= 400);
+        } catch (e) {
+          show(btn, 'Request failed: ' + e.message, true);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

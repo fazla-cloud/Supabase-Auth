@@ -1,0 +1,214 @@
+{
+  "info": {
+    "_postman_id": "b1e1e1e1-1111-2222-3333-444455556666",
+    "name": "Supabase Server API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for testing Supabase server endpoints (including OTP verification & resend)."
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3024/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Sign Up",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\",\n  \"data\": {}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3024/signUp",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["signUp"]
+        }
+      }
+    },
+    {
+      "name": "Verify Sign Up OTP",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"token\": \"123456\",\n  \"type\": \"signup\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3024/signUpVerify",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["signUpVerify"]
+        }
+      }
+    },
+    {
+      "name": "Resend OTP",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3024/resendOtp",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["resendOtp"]
+        }
+      }
+    },
+    {
+      "name": "Sign In",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3024/signIn",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["signIn"]
+        }
+      }
+    },
+    {
+      "name": "Google OAuth Sign In",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3024/gglSignIn?redirectTo=https://your-app.com/callback",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["gglSignIn"],
+          "query": [
+            { "key": "redirectTo", "value": "https://your-app.com/callback" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Forgot Password",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"redirectTo\": \"https://your-app.com/reset-password\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3024/forgtPss",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["forgtPss"]
+        }
+      }
+    },
+    {
+      "name": "Reset Password OTP Verify",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"token\": \"123456\",\n  \"newPassword\": \"newSecurePassword123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3024/resetPssVerify",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["resetPssVerify"]
+        }
+      }
+    },
+    {
+      "name": "Get User (by access token)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer <access_token>" }
+        ],
+        "url": {
+          "raw": "http://localhost:3024/getUsr",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["getUsr"]
+        }
+      }
+    },
+    {
+      "name": "Get User (by email, admin)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3024/getUsr?email=test@example.com",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["getUsr"],
+          "query": [
+            { "key": "email", "value": "test@example.com" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "User Exists",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3024/usrExst",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3024",
+          "path": ["usrExst"]
+        }
+      }
+    }
+  ]
+}

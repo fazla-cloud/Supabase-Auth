@@ -1,0 +1,22 @@
+{
+  "name": "supabase-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "supabase_server.js",
+  "scripts": {
+    "build": "node -c supabase_server.js",
+    "start": "node supabase_server.js",
+    "dev": "node --watch supabase_server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.90.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "node-fetch": "^2.7.0"
+  }
+}
